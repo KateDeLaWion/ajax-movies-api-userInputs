@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="app.js"></script> -->
+</head>
+
+<body>
+    <form>
+        <input type="text" placeholder="movie title" />
+        <input type="submit" value="Get Movie Info" />
+    </form>
+    <h1>Movie Info</h1>
+    <dl>
+        <dt>Title</dt>
+        <dd id="title"></dd>
+
+        <dt>Year</dt>
+        <dd id="year"></dd>
+
+        <dt>Rating</dt>
+        <dd id="rated"></dd>
+    </dl>
+    <script>
+        $(() => {
+
+            $('form').on('submit', (event) => {
+                event.preventDefault();
+
+                const userInput = $('input[type="text"]').val();
+                $.ajax({
+                    url: 'http://www.omdbapi.com/?apikey=53aa2cd6&t=' + userInput
+                                             // This originally for Frozen
+                }).then(
+                    (data) => {
+                        $('#title').html(data.Title);
+                        $('#year').html(data.Year);
+                        $('#rated').html(data.Rated);
+                    },
+                    () => {
+                        console.log('bad');
+                    }
+                );
+            })
+        })
+    </script>
+</body>
+
+</html>
